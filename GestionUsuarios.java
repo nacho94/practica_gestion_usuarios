@@ -1,5 +1,23 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
+import java.util.Comparator;
+
+class MiComparador implements Comparator <String> {
+	
+	public int compare (String a, String b) {
+		for (int i = 0; i<a.length();i++) {
+			if(a.charAt(i) != b.charAt(i)) {
+				if (a.charAt(i) > b.charAt(i)) {
+					return 1;
+				} else {
+					return -1;
+				}
+			} 
+		}
+		return 0;
+	}
+}
 
 public class GestionUsuarios {
 
@@ -21,16 +39,18 @@ public class GestionUsuarios {
 		String conjunto1, conjunto2;
 		
 		
-		conjunto1=scan.nextLine();
-		conjunto2=scan.nextLine();
-		
+		//conjunto1=scan.nextLine();
+		//conjunto2=scan.nextLine();
+
+		conjunto1 = "usuario1 password1 usuario2 password2 usuario3 pass";
+		conjunto2 = "usuario10 password1 usuario3 pass2";
 		scan.close();
 		
 		c1=separador(conjunto1);
 		c2=separador(conjunto2);
 		
 		
-		contrasenas_c1=generaContrasenas(c1);s
+		contrasenas_c1=generaContrasenas(c1);
 		contrasenas_c2=generaContrasenas(c2);
 		
 		contrasenas=guardaContrasenas(contrasenas_c1, contrasenas_c2);
@@ -41,7 +61,16 @@ public class GestionUsuarios {
 		print(contrasenas_c2);
 		print(contrasenas);
 		print(repetidas);
-		
+
+		contrasenas = eliminarContrasenas(contrasenas,repetidas);
+
+		print(contrasenas);
+
+		//print(ordenar(contrasenas));
+		ArrayList <String> a = new ArrayList <String>();
+		a.add("casi");
+		a.add("casa");
+		print(ordenar(a));
 	}
 	
 	public static ArrayList <String> separador (String conjunto) {
@@ -110,6 +139,24 @@ public class GestionUsuarios {
             System.out.println();
 	}
 	
-	
+	public static ArrayList <String> eliminarContrasenas(ArrayList <String> conjunto , ArrayList <String> duplicadas) {
+
+		for (int i = 0; i<conjunto.size(); i++ ) {
+			for(int j=0; j<duplicadas.size(); j++) {
+				if(conjunto.get(i).equals(duplicadas.get(j)))
+					conjunto.remove(i);
+			
+			}
+			
+		}
+		return guardaContrasenas(conjunto,duplicadas);
+
+	}
+
+	public static ArrayList <String> ordenar ( ArrayList <String> conjunto) {
+		Collections.sort(conjunto, new MiComparador());
+
+		return conjunto;
+	}
 }	
 		
