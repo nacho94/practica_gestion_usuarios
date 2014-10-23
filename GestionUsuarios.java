@@ -4,16 +4,41 @@ import java.util.Scanner;
 import java.util.Comparator;
 
 class MiComparador implements Comparator <String> {
-	
+	public void dd(String msj) {
+		System.out.println(msj);
+	}
+	public boolean isNumber(char x) {
+		return x >=48 && x<=57;
+
+	}
 	public int compare (String a, String b) {
-		for (int i = 0; i<a.length();i++) {
+		//dd("a = " + a + "--b = " + b);
+		
+
+		int l = a.length() < b.length() ? a.length() : b.length(); 
+		//dd("l = " + Integer.toString(l));
+		for (int i = 0; i<l;i++) {
+
 			if(a.charAt(i) != b.charAt(i)) {
+				if(isNumber(a.charAt(i)) ^ isNumber(b.charAt(i)) ) {
+					if (a.charAt(i) > b.charAt(i)) {
+						return -1;
+
+					} else {
+						return 1;
+					}
+				}
 				if (a.charAt(i) > b.charAt(i)) {
 					return 1;
 				} else {
 					return -1;
 				}
 			} 
+		}
+		if(a.length() < b.length()) {
+			return -1;
+		} else if(a.length() > b.length()){
+			return 1;
 		}
 		return 0;
 	}
@@ -39,11 +64,11 @@ public class GestionUsuarios {
 		String conjunto1, conjunto2;
 		
 		
-		//conjunto1=scan.nextLine();
-		//conjunto2=scan.nextLine();
+		conjunto1=scan.nextLine();
+		conjunto2=scan.nextLine();
 
-		conjunto1 = "usuario1 password1 usuario2 password2 usuario3 pass";
-		conjunto2 = "usuario10 password1 usuario3 pass2";
+		//conjunto1 = "usuario1 password1 usuario2 password2 usuario3 pass";
+		//conjunto2 = "usuario10 password1 usuario3 pass2";
 		scan.close();
 		
 		c1=separador(conjunto1);
@@ -57,20 +82,20 @@ public class GestionUsuarios {
 		repetidas=guardaRepetidas(contrasenas_c1, contrasenas_c2);
 		
 		
-		print(contrasenas_c1);
+		/*print(contrasenas_c1);
 		print(contrasenas_c2);
-		print(contrasenas);
-		print(repetidas);
+		print(contrasenas);*/
+		
 
 		contrasenas = eliminarContrasenas(contrasenas,repetidas);
 
-		print(contrasenas);
-
-		//print(ordenar(contrasenas));
-		ArrayList <String> a = new ArrayList <String>();
+		
+		print(ordenar(contrasenas));
+		print(repetidas);
+		/*ArrayList <String> a = new ArrayList <String>();
 		a.add("casi");
-		a.add("casa");
-		print(ordenar(a));
+		a.add("casae");
+		print(ordenar(a)); */
 	}
 	
 	public static ArrayList <String> separador (String conjunto) {
@@ -133,7 +158,7 @@ public class GestionUsuarios {
 	public static void print ( ArrayList <String> contrasenas) {
 		for(int i=0;i<contrasenas.size(); i++){
                 System.out.print(contrasenas.get(i));
-                if(i<contrasenas.size()) 
+                if(i<contrasenas.size() - 1) 
                     System.out.print(" ");
             }
             System.out.println();
